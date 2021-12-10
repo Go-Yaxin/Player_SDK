@@ -107,67 +107,26 @@ SDK 支持 HLS 的多码流自适应，开启相关能力后播放器能够根�
 
 ### 事件通知（onPlayEvent）
 
-[](id:listen_play)
 #### 播放事件
-| 事件 ID               |   数值  |  含义说明                 |
-| :-------------------  |:-------- |  :------------------------ |
-|PLAY_EVT_PLAY_BEGIN    |  2004|  视频播放开始，此时用户可见视频首帧 |
-|PLAY_EVT_PLAY_PROGRESS |  2005|  视频播放进度，会通知当前播放进度、加载进度和总体时长     |
-|PLAY_EVT_PLAY_LOADING  |  2007|  视频播放过程中出现暂停加载现象，即loading，如果能够恢复，之后会有 LOADING_END 事件|
-|PLAY_EVT_VOD_LOADING_END   |  2014|  视频播放过程中的暂停加载结束，即loading结束，视频继续播放|
-
-
-
-[](id:listen_stop)
+(原播放事件)
 #### 结束事件
-| 事件 ID                 |    数值  |  含义说明                |
-| :-------------------  |:-------- |  :------------------------ |
-|PLAY_EVT_PLAY_END      |  2006|  视频播放结束   |
-|PLAY_ERR_NET_DISCONNECT |  -2301  |  网络断连，且经多次重连亦不能恢复，更多重试请自行重启播放 |
-|PLAY_ERR_HLS_KEY       | -2305 | HLS 解密 key 获取失败 |
-
-[](id:listen_warning)
+(原结束事件)
 #### 警告事件
-如下的这些事件您可以不用关心，它只是用来告知您 SDK 内部的一些事件。
-
-| 事件 ID                 |    数值  |  含义说明                    |
-| :-------------------  |:-------- |  :------------------------ |
-| PLAY_WARNING_VIDEO_DECODE_FAIL   |  2101  | 当前视频帧解码失败  |
-| PLAY_WARNING_AUDIO_DECODE_FAIL   |  2102  | 当前音频帧解码失败  |
-| PLAY_WARNING_RECONNECT           |  2103  | 网络断连，已启动自动重连（重连超过三次就直接抛送 PLAY_ERR_NET_DISCONNECT 了）|
-| PLAY_WARNING_HW_ACCELERATION_FAIL|  2106  | 硬解启动失败，采用软解   |
-
-
-### 连接事件
-此外还有几个连接服务器的事件，主要用于测定和统计服务器连接时间：
-
-| 事件 ID                     |    数值  |  含义说明                    |
-| :-----------------------  |:-------- |  :------------------------ |
-| PLAY_EVT_VOD_PLAY_PREPARED     |  2013    | 播放器已准备完成，可以播放。设置了 autoPlay 为 false 之后，需要在收到此事件后，调用 resume 才会开始播放     |
-| PLAY_EVT_RCV_FIRST_I_FRAME|  2003    | 网络接收到首个可渲染的视频数据包（IDR）  |
-
-
+(原警告事件)
+#### 连接事件
+(原连接事件)
 #### 画面事件
-以下事件用于获取画面变化信息：
-| 事件 ID                     |    数值  |  含义说明                    |
-| :-----------------------  |:-------- |  :------------------------ |
-| PLAY_EVT_CHANGE_RESOLUTION|  2009    | 视频分辨率改变               |
-| PLAY_EVT_CHANGE_ROATION   |  2011    | MP4 视频旋转角度 |
-
-
+(原分辨率事件)
 
 #### 视频信息事件——dokie
 | 事件 ID                     |    数值  |  含义说明                    |
 | :-----------------------  |:-------- |  :------------------------ |
 |PLAY_EVT_GET_PLAYINFO_SUCC   |  |  |
 
-如果通过 fileId 方式播放且请求成功，SDK 会将一些请求信息通知到上层。您可以在收到 PLAY_EVT_GET_PLAYINFO_SUCC 事件后，解析 param 获取视频信息。
-|   视频信息                   |  含义说明                   |
-| :------------------------  |  :------------------------ |
-| EVT_PLAY_COVER_URL     | 视频封面地址 |
-| EVT_PLAY_URL  | 视频播放地址 |
-| EVT_PLAY_DURATION | 视频时长 |
 
+（原视频信息）
+如果通过 fileId 方式播放且请求成功，SDK 会将一些请求信息通知到上层。您可以在收到 PLAY_EVT_GET_PLAYINFO_SUCC 事件后，解析 param 获取视频信息。
+![image](https://user-images.githubusercontent.com/88317062/145534673-cc63bfe4-22f0-4b25-9179-9e4a01b98d51.png)
 
 
 ### 状态反馈（onNetStatus）
