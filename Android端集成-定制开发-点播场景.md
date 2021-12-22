@@ -1,4 +1,4 @@
-## 准备工作——dokie
+## 准备工作
 1. 开通 [云点播](https://cloud.tencent.com/product/vod) 相关服务，未注册用户可注册账号 [试用](https://cloud.tencent.com/login)。
 2. 下载 Android Studio，您可以进入 [Android Studio 官网](https://developer.android.com/studio)下载安装，如已下载可略过该步骤。
 
@@ -7,7 +7,7 @@
 * 如何使用播放器SDK进行点播播放
 * 如何使用播放器SDK底层能力实现更多功能
 
-## SDK集成——dokie
+## SDK集成
 [](id:step1)
 
 ### 步骤1：下载 SDK 开发包
@@ -131,7 +131,7 @@ mVodPlayer.setBitrateIndex(-1); //index 参数传入-1
 在播放过程中，可以随时通过 `mVodPlayer.setBitrateIndex(int)` 切换其它码率，切换后码流自适应也随之关闭。
 
 
-### 11、加密播放——dokie
+### 11、加密播放
 视频加密方案主要用于在线教育等需要对视频版权进行保护的场景。如果要对您的视频资源进行加密保护，就不仅需要在播放器上做改造，还需要对视频源本身进行加密转码，亦需要您的后台和终端研发工程师都参与其中。在 [视频加密解决方案](https://cloud.tencent.com/document/product/266/45552) 中您会了解到全部细节内容。
 
 
