@@ -1,9 +1,6 @@
 ## 准备工作——dokie
-1、
-
-2、
-
-3、
+1. 开通 [云点播](https://cloud.tencent.com/product/vod) 相关服务，未注册用户可注册账号 [试用](https://cloud.tencent.com/login)。
+2. 下载 Android Studio，您可以进入 [Android Studio 官网](https://developer.android.com/studio)下载安装，如已下载可略过该步骤。
 
 ## 通过本文你可以学会
 * 如何集成腾讯云视立方Android播放器SDK
@@ -11,13 +8,89 @@
 * 如何使用播放器SDK底层能力实现更多功能
 
 ## SDK集成——dokie
-（包含集成、启动播放和结束播放）
+[](id:step1)
 
-步骤1:
+### 步骤1：下载 SDK 开发包
 
-步骤2:
+[下载](https://vcube.cloud.tencent.com/home.html) SDK 开发包，并按照 [SDK 集成指引](https://cloud.tencent.com/document/product/1449/56987) 将 SDK 嵌入您的 App 工程中。
 
-步骤3:
+[](id:step2)
+
+### 步骤2：添加 View
+
+为了能够展示播放器的视频画面，我们第一步要做的就是在布局 xml 文件里加入如下一段代码：
+
+```xml
+<com.tencent.rtmp.ui.TXCloudVideoView
+            android:id="@+id/video_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+```
+
+[](id:step3)
+
+### 步骤3：创建 Player
+
+接下来创建一个 **TXVodPlayer** 的对象，并使用 setPlayerView 接口将它与我们刚添加到界面上的 **video_view** 控件进行关联。
+
+```java
+//mPlayerView 即步骤1中添加的界面 view
+TXCloudVideoView mView = (TXCloudVideoView) view.findViewById(R.id.video_view);
+//创建 player 对象
+TXVodPlayer mVodPlayer = new TXVodPlayer(getActivity());
+//关联 player 对象与界面 view
+mVodPlayer.setPlayerView(mView);
+```
+
+[](id:step4)
+
+### 步骤4：启动播放
+
+TXVodPlayer 支持两种播放模式，您可以根据需要自行选择：
+
+- **通过 URL 方式：**
+  TXVodPlayer 内部会自动识别播放协议，您只需要将您的播放 URL 传给 startPlay 函数即可。
+
+```java
+String url = "http://1252463788.vod2.myqcloud.com/xxxxx/v.f20.mp4";
+mVodPlayer.startPlay(url); 
+```
+
+- **通过 FileId 方式：**
+
+```objectivec
+TXPlayerAuthBuilder authBuilder = new TXPlayerAuthBuilder();
+authBuilder.setAppId(1252463788);
+authBuilder.setFileId("4564972819220421305");
+mVodPlayer.startPlay(authBuilder); 
+```
+
+在 [媒资管理](https://console.cloud.tencent.com/vod/media) 找到对应的视频文件。在文件名下方可以看到 FileId。
+
+通过 FileId 方式播放，播放器会向后台请求真实的播放地址。如果此时网络异常或 FileId 不存在，则会收到`TXLiveConstants.PLAY_ERR_GET_PLAYINFO_FAIL`事件，反之收到`TXLiveConstants.PLAY_EVT_GET_PLAYINFO_SUCC`表示请求成功。
+
+[](id:5)
+
+### 步骤5：结束播放
+
+结束播放时**记得销毁 view 控件**，尤其是在下次 startPlay 之前，否则会产生大量的内存泄露以及闪屏问题。
+
+同时，在退出播放界面时，记得一定要调用渲染 View 的`onDestroy()`函数，否则可能会产生内存泄露和“Receiver not registered”报警。
+
+```java
+@Override
+public void onDestroy() {
+    super.onDestroy();
+    mVodPlayer.stopPlay(true); // true 代表清除最后一帧画面
+    mView.onDestroy(); 
+}
+```
+
+stopPlay 的布尔型参数含义为—— “是否清除最后一帧画面”。早期版本的 RTMP SDK 的直播播放器没有 pause 的概念，所以通过这个布尔值来控制最后一帧画面的清除。
+
+如果是点播播放结束后，也想保留最后一帧画面，您可以在收到播放结束事件后什么也不做，默认停在最后一帧。
 
 ## 功能使用
 ### 1、播放控制
@@ -40,7 +113,7 @@
 播放器SDK支持在界面添加图片贴片，用于广告宣传等。实现方式如下：
 * 将`autoPlay`为 NO，此时播放器会正常加载，但视频不会立刻开始播放。
 * 在播放器加载出来后、视频尚未开始时，即可在播放器界面查看图片贴片广告。
-* 待达到广告展示结束条件时，使用resume函数启动视频播放。
+* 待达到广告展示结束条件时，使用resume接口启动视频播放。
 
 ### 7、HTTP-REF
 （原步骤14）
@@ -59,9 +132,7 @@ mVodPlayer.setBitrateIndex(-1); //index 参数传入-1
 
 
 ### 11、加密播放——dokie
-（原步骤13。内容待补充）
-视频加密方案可用于在线教育、独播剧等需要对视频版权进行保护的场景。完整的视频加密方案需要首先对视频资源进行加密保护，随后基于播放器实现加密视频播放，
-具体实现方式参见[播放加密视频](https://cloud.tencent.com/document/product/266/46220)。
+视频加密方案主要用于在线教育等需要对视频版权进行保护的场景。如果要对您的视频资源进行加密保护，就不仅需要在播放器上做改造，还需要对视频源本身进行加密转码，亦需要您的后台和终端研发工程师都参与其中。在 [视频加密解决方案](https://cloud.tencent.com/document/product/266/45552) 中您会了解到全部细节内容。
 
 
 ### 12、本地缓存
@@ -127,7 +198,7 @@ mVodPlayer.setBitrateIndex(-1); //index 参数传入-1
 #### 视频信息事件——dokie
 | 事件 ID                     |    数值  |  含义说明                    |
 | :-----------------------  |:-------- |  :------------------------ |
-|TXLiveConstants.PLAY_EVT_GET_PLAYINFO_SUCC   |  |  |
+|TXLiveConstants.PLAY_EVT_GET_PLAYINFO_SUCC   | 2010 | 成功获取播放文件信息 |
 
 
 （原视频信息）
