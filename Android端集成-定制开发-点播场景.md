@@ -1,5 +1,8 @@
+![image](https://user-images.githubusercontent.com/88317062/147314232-3b8fe0db-754c-4593-ba0b-fca0196f58d4.png)
+
+
 ## 准备工作
-1. 开通 [云点播](https://cloud.tencent.com/product/vod) 相关服务，未注册用户可注册账号 [试用](https://cloud.tencent.com/login)。
+1. 为了您体验到更完整全面的播放器功能，建议您开通 [云点播](https://cloud.tencent.com/product/vod) 相关服务，未注册用户可注册账号 [试用](https://cloud.tencent.com/login)。若您不使用云点播服务，可略过此步骤，但集成后仅可使用播放器基础能力。
 2. 下载 Android Studio，您可以进入 [Android Studio 官网](https://developer.android.com/studio)下载安装，如已下载可略过该步骤。
 
 ## 通过本文你可以学会
@@ -195,7 +198,7 @@ mVodPlayer.setBitrateIndex(-1); //index 参数传入-1
 (原分辨率事件)
 ![image](https://user-images.githubusercontent.com/88317062/145537472-29dc6a41-aaff-475b-a435-008fe4ec7682.png)
 
-#### 视频信息事件——dokie
+#### 视频信息事件
 | 事件 ID                     |    数值  |  含义说明                    |
 | :-----------------------  |:-------- |  :------------------------ |
 |TXLiveConstants.PLAY_EVT_GET_PLAYINFO_SUCC   | 2010 | 成功获取播放文件信息 |
