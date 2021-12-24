@@ -39,10 +39,10 @@
 接下来创建一个 **TXVodPlayer** 的对象，并使用 setPlayerView 接口将它与我们刚添加到界面上的 **video_view** 控件进行关联。
 
 ```java
-//mPlayerView 即步骤1中添加的界面 view
+//mPlayerView 即步骤2中添加的界面 view
 TXCloudVideoView mView = (TXCloudVideoView) view.findViewById(R.id.video_view);
 //创建 player 对象
-TXVodPlayer mVodPlayer = new TXVodPlayer(getActivity());
+TXVodPlayer mVodPlayer = new XVodPlayer(getActivity());
 //关联 player 对象与界面 view
 mVodPlayer.setPlayerView(mView);
 ```
@@ -100,7 +100,10 @@ stopPlay 的布尔型参数含义为—— “是否清除最后一帧画面”�
 （原步骤6）
 
 ### 2、画面调整
-（原步骤5）
+（原步骤5,作以下变更）
+![image](https://user-images.githubusercontent.com/88317062/147314910-206af360-5fac-4fc3-a6ba-ebc1cd07b2db.png)
+
+如需修改画面的大小及位置，直接调整SDK集成时 [添加 View](sdk集成的步骤2 ) 中添加的 “video_view” 控件的大小和位置即可。
 
 ### 3、变速播放
 （原步骤9）
