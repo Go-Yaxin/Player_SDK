@@ -74,8 +74,10 @@
 您可以为 `TXLivePlayer` 对象绑定一个 `TXLivePlayListener`，之后 SDK 的内部状态信息均会通过 `onPlayEvent`（事件通知）和 `onNetStatus`（状态反馈）通知给您。
 
 ### 事件通知（onPlayEvent）
-（原SDK事件监听，除去第一句话）
-![image](https://user-images.githubusercontent.com/88317062/149346806-f3c026c1-dc7c-43db-a35d-0834ed952838.png)
+（原SDK事件监听的123，3种事件，除去第一句话）
+![image](https://user-images.githubusercontent.com/88317062/149350361-f5b26735-2419-49e8-a62f-6188fb9319c4.png)
+
+
 
 
 ### 状态反馈（onNetStatus）
