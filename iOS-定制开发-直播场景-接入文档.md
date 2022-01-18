@@ -2,17 +2,15 @@
 
 ## 版本支持
 （原文档的版本支持）
-![image](https://user-images.githubusercontent.com/88317062/149340635-f1c50d2d-80c0-4005-b8a8-81ad96742f1a.png)
 
 ## 示例代码
 （原文档的示例代码）
-![image](https://user-images.githubusercontent.com/88317062/149340671-ebc31058-f1ca-40ce-b35b-ae6eef77857d.png)
 
-## 准备工作（待补充——Park）
+## 准备工作（待补充——Park，可参考点播）
 
 
 ## 通过本文你可以学会
-* 如何集成腾讯云视立方 Android 播放器SDK
+* 如何集成腾讯云视立方 iOS 播放器SDK
 * 如何使用播放器 SDK 进行直播播放
 * 如何使用播放器 SDK 底层能力实现更多直播播放功能
 
@@ -68,14 +66,14 @@
 ### 10、获取视频信息
 播放器 SDK 通过 URL 字符串播放视频，URL 中本身不包含视频信息。为获取相关信息，需要通过访问云端服务器加载到相关视频信息，因此 SDK 只能以事件通知的方式将视频信息发送到您的应用程序中，更多内容参见 [事件监听](下面的事件监听)。
 
-您可以通过通过`onNetStatus`的`NET_STATUS_VIDEO_WIDTH`和`NET_STATUS_VIDEO_HEIGHT`获取视频的宽和高。具体使用方法见 [状态反馈（onNetStatus）](下面事件监听里面的状态反馈)。
+例如您可以通过`onNetStatus`的`NET_STATUS_VIDEO_WIDTH`和`NET_STATUS_VIDEO_HEIGHT`获取视频的宽和高。具体使用方法见 [状态反馈（onNetStatus）](下面事件监听里面的状态反馈)。
 
 ## 事件监听
-您可以为 `TXLivePlayer` 对象绑定一个 `TXLivePlayListener`，之后 SDK 的内部状态信息均会通过 `onPlayEvent`（事件通知）和 `onNetStatus`（状态反馈）通知给您。
+您可以为 `TXLivePlayer` 对象绑定一个 `TXLivePlayListener`，之后 SDK 的内部状态信息均会通过 `onPlayEvent`（[事件通知](下面事件通知标题)）和 `onNetStatus`（[状态反馈](下面事件通知标题)）通知给您。
 
 ### 事件通知（onPlayEvent）
-（原SDK事件监听的123，3种事件，除去第一句话）
-![image](https://user-images.githubusercontent.com/88317062/149350361-f5b26735-2419-49e8-a62f-6188fb9319c4.png)
+（原SDK事件监听的3种事件:播放事件、结束事件和警告事件）
+![image](https://user-images.githubusercontent.com/88317062/149939151-ac8bf658-22cd-4601-bf93-326a7357acb3.png)
 
 
 
@@ -83,8 +81,7 @@
 ### 状态反馈（onNetStatus）
 （原文档最下面的状态反馈）
 通知每秒都会被触发一次，目的是实时反馈当前的推流器状态，它就像汽车的仪表盘，可以告知您目前 SDK 内部的一些具体情况，以便您能对当前网络状况和视频信息等有所了解。
-![image](https://user-images.githubusercontent.com/88317062/149346372-a2fb1cf2-d09e-4409-896f-99d4c8200d88.png)
-
+![image](https://user-images.githubusercontent.com/88317062/149939213-5eb941e5-4652-40dc-80d7-04d6a6c8930b.png)
 
 
 
